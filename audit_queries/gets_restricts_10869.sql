@@ -1,4 +1,3 @@
-#don't join rights restriction table at all? As soon as I add it I get 90 more results...I know some of these are dupes
 SELECT repository.name as repo_name
 	, resource.identifier as parent_id
 	, resource.title as parent_title
@@ -12,7 +11,7 @@ LEFT JOIN resource on resource.id = ao.root_record_id
 LEFT JOIN repository on ao.repo_id = repository.id
 #LEFT JOIN rights_restriction rr on rr.archival_object_id = ao.id
 LEFT JOIN note_persistent_id npi on npi.note_id = note.id
-#LEFT JOIN rights_restriction_type rrt on rrt.rights_restriction_id = rr.id
+#JOIN rights_restriction_type rrt on rrt.rights_restriction_id = rr.id
 WHERE (note.notes LIKE '%"type":"accessrestrict"%' OR note.notes LIKE '%"type":"userestrict"%')
 AND note.notes LIKE '%rights_restriction%'
 UNION ALL
