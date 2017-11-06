@@ -1,5 +1,6 @@
 #get resource-level restriction info
-SELECT publish AS resource_pub_status
+SELECT CONCAT('/repositories/', resource.repo_id, '/resources/', resource.id)
+	, publish AS resource_pub_status
     , title AS resource_title
     , ead_id AS EAD_ID
 FROM resource

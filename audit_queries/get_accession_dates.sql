@@ -1,4 +1,5 @@
-SELECT accession.display_string
+SELECT CONCAT('/repositories/', accession.repo_id, '/accessions/', accession.id) AS accession_URI
+	, accession.display_string
 	, ev2.value as date_type
     , ev3.value as date_certainty
     , ev4.value as date_calendar
@@ -7,7 +8,6 @@ SELECT accession.display_string
     , date.expression as date_expression
     , date.begin as begin_date
     , date.end as end_date
-    , date.accession_id
 FROM date
 LEFT JOIN accession on accession.id = date.accession_id
 LEFT JOIN enumeration_value ev2 on ev2.id = date.date_type_id

@@ -1,4 +1,6 @@
-SELECT resource.identifier as resource_identifier
+SELECT CONCAT('/repositories/', ao.repo_id, '/archival_objects/', ao.id) AS component_URI
+	, CONCAT('/repositories/', resource.repo_id, '/resources/', resource.id) AS resource_URI
+	, resource.identifier as resource_identifier
 	, resource.title as resource_title
     , ao.display_string as archival_object_title
     , ev.value as component_level
@@ -10,7 +12,6 @@ SELECT resource.identifier as resource_identifier
     , date.expression as date_expression
     , date.begin as begin_date
     , date.end as end_date
-    , date.archival_object_id
 FROM date
 LEFT JOIN archival_object ao on date.archival_object_id = ao.id
 LEFT JOIN resource on resource.id = ao.root_record_id

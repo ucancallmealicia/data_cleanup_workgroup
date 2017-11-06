@@ -1,4 +1,5 @@
-select ev2.value AS extent_type 
+select CONCAT('/repositories/', r.repo_id, '/resources/', r.id)
+	, ev2.value AS extent_type 
 	, e.number as number
 	, ev.value AS portion
     , e.container_summary

@@ -1,4 +1,5 @@
-SELECT resource.identifier as resource_identifier
+SELECT CONCAT('/repositories/', resource.repo_id, '/resources/', resource.id) AS resource_URI
+	, resource.identifier as resource_identifier
 	, resource.ead_id as ead_id
 	, resource.title as resource_title
 	, ev2.value as date_type
@@ -9,7 +10,6 @@ SELECT resource.identifier as resource_identifier
     , date.expression as date_expression
     , date.begin as begin_date
     , date.end as end_date
-    , date.archival_object_id
 FROM date
 LEFT JOIN resource on resource.id = date.resource_id
 LEFT JOIN enumeration_value ev2 on ev2.id = date.date_type_id

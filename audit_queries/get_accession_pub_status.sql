@@ -1,5 +1,6 @@
 #get resource-level restriction info
-SELECT identifier
+SELECT CONCAT('/repositories/', accession.repo_id, '/accessions/', accession.id)
+	, identifier
     , title AS accession_title
 	, publish AS accession_pub_status
 FROM accession

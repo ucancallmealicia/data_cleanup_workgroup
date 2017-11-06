@@ -1,4 +1,6 @@
-select ev2.value AS extent_type 
+select CONCAT('/repositories/', ao.repo_id, '/archival_objects/', ao.id) AS component_URI
+	, CONCAT('/repositories/', r.repo_id, '/resources/', r.id) AS resource_URI
+	, ev2.value AS extent_type 
 	, e.number as number
 	, ev.value AS portion
     , e.container_summary
