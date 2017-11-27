@@ -27,7 +27,7 @@ SELECT repository.name as repo_name
 	, CAST(note.notes as CHAR (15000) CHARACTER SET UTF8) AS text
     , NULL as ao_title
     , resource.title as title
-    , CONCAT('/repositories/', resource.repo_id, '/archival_objects/', resource.id) AS uri
+    , CONCAT('/repositories/', resource.repo_id, '/resources/', resource.id) AS uri
     , rr.restriction_note_type
     , rr.begin
     , rr.end
