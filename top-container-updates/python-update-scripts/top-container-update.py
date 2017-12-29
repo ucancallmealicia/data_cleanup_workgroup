@@ -61,7 +61,7 @@ def update_top_containers(api_url, headers, container_locations=None):
                 else:
                     # this next bit is all that's needed to update existing location information
                     for member in record_json['container_locations']:
-                        if key == 'aspace-location-URI-to-post':
+                        if key == 'aspace-location-URI-to-post' and value != '':
                             member['ref'] = value
                         if key == 'location_start_date' and value != '':
                             member['start_date'] = value
