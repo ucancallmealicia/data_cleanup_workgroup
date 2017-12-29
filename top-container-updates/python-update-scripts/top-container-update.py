@@ -45,8 +45,10 @@ def get_container_profile_URIs(api_url, headers):
 def update_top_containers(api_url, headers, container_locations=None):
     csv = open_csv()
     for row in csv:
+        print(row)
         try:
             record_uri = row['top-container-URI']
+            container_location = row['aspace-location-URI-to-post']
             record_json = requests.get(api_url + record_uri, headers=authorization_token).json()
             for key, value in row.items():
                 # use the start_date value when creating a new location association; if a start_date is not present, default to today's date
@@ -54,8 +56,8 @@ def update_top_containers(api_url, headers, container_locations=None):
                 
                 # check to see if the container_locations list is empty, since ASpace adds that key even if there are no locations assigned.
                 # i don't want to check for the empty array like this, but when i tried other methods, it always evaluated to True.  so, going with len() for now
-                if len(record_json['container_locations']) == 0 and key == 'aspace-location-URI-to-post':
-                    record_json['container_locations'].append({'start_date':location_date_to_post, 'ref':value, 'status':'current'})
+                if len(record_json['container_locations']) == 0 and container_location != '':
+                    record_json['container_locations'].append({'start_date':location_date_to_post, 'ref':container_location, 'status':'current'})
                 else:
                     # this next bit is all that's needed to update existing location information
                     for member in record_json['container_locations']:
@@ -74,6 +76,7 @@ def update_top_containers(api_url, headers, container_locations=None):
                 '''
 
                 if key == 'voyager-barcode':
+                    print('barcode is ' + value)
                     record_json['barcode'] = value
                     
             record_data = json.dumps(record_json)
@@ -90,7 +93,8 @@ def main():
     '''i'm not updating container_profiles in this first pass, so this section has been removed from the script for now'''
     # container_profiles = get_container_profile_URIs(api_url, authorization_token)
     update_top_containers(api_url, authorization_token)
-    logging.info('Finished') 
+    logging.info('Finished')
+    input("Press enter to exit...")
 
 
 if __name__ == '__main__':
@@ -99,4 +103,3 @@ if __name__ == '__main__':
     api_url = input('Please enter the ArchivesSpace API URL: ')
     authorization_token = login(api_url)
     main()
-
