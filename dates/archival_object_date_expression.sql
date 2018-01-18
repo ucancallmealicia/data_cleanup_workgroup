@@ -1,6 +1,6 @@
 SELECT date.id
-	, date.expression 
 	, CONCAT('/repositories/', archival_object.repo_id, '/archival_objects/', archival_object.id) AS URI 
+	, date.expression 
 	, archival_object.title AS component_title 
 	, resource.title AS resource_title
 	, resource.ead_id
