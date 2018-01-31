@@ -27,21 +27,30 @@ def opencsv():
     next(csvin, None)
     return csvin
 
+def opentxt():
+    filepath = input('Please enter path to output text file: ')
+    filename = open(filepath, 'a' )
+    return filename
+
 def update_pub_status():
     values = login()
     csvfile = opencsv()
+    txtfile = opentxt()
     for row in csvfile:
         ao_uri = row[0]
         #1 for publish, 0 for unpublish
         updated_status = row[1]
-        ao_json = requests.get(values[0] + ao_uri, headers=values[1]).json()
-        if updated_status == '1':
-            ao_json['publish'] = True
-        elif updated_status == '0':
-            ao_json['publish'] = False
-        ao_data = json.dumps(ao_json)
-        ao_update = requests.post(values[0] + ao_uri, headers=values[1], data=ao_data).json()
-        print(ao_update)
+        try:
+            ao_json = requests.get(values[0] + ao_uri, headers=values[1]).json()
+            if updated_status == '1':
+                ao_json['publish'] = True
+            elif updated_status == '0':
+                ao_json['publish'] = False
+            ao_data = json.dumps(ao_json)
+            ao_update = requests.post(values[0] + ao_uri, headers=values[1], data=ao_data).json()
+            print(ao_update)
+        except:
+            txtfile.write('could not update ' + str(ao_uri))
 
 #uses persistent ID as key; can also do this for resource_level notes...or abstract and use for both.
 def update_note_pub_status():

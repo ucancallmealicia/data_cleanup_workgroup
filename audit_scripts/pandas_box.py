@@ -58,7 +58,7 @@ def get_val_counts():
     print('Columns: ' + head)
     columnname = input('Please enter column name: ')
     counts = dataset[columnname].value_counts()
-    counts.to_csv('counts.csv', encoding='utf-8')
+    counts.to_csv('/Users/aliciadetelich/Desktop/counts.csv', encoding='utf-8')
     print(counts)
 
 #Get a summary of data
