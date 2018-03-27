@@ -59,8 +59,6 @@ def update_subrecord_component(subrecord, component):
                     y = y + 1
                 if 'error' in resource_update.keys():
                     txtout.write('error: could not update ' + str(resource_uri) + '\n')
-                    #this isn't working
-                    txtout.write('log: ' + str(resource_update.get('error')) + '\n')
         except:
             txtout.write('could not locate object ' + str(resource_uri) + '\n')
             continue
