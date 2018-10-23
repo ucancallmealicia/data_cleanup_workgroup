@@ -1,5 +1,8 @@
 #this query filters by archival object, but also shows the resource-level publication status for each object
-SELECT resource.publish AS resource_pub_status
+SELECT CONCAT('/repositories/', ao.repo_id, '/archival_objects', ao.id) AS ao_URI
+    , CONCAT('/repositories/', resource.repo_id, '/resources/', resource.id) AS resource_URI
+    , resource.ead_id as EAD_ID
+	, resource.publish AS resource_pub_status
     , resource.title AS resource_title
     , ao.publish AS component_pub_status
     , resource.ead_id AS EAD_ID
